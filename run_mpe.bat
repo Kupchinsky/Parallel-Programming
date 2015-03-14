@@ -10,7 +10,7 @@ if not exist "%~dp0\labs\bin\%~n1_mpe" (
 
 set pc=2
 set args=""
-set /p "pc=Enter process count (default 2): "
+set /p "pc=(MPE) Enter process count (default 2): "
 set /p "args=Enter custom arguments: "
 
 echo mpi/run_mpe.sh %args% > "%temp%\run_mpe.txt"
