@@ -26,12 +26,12 @@ int main(int argc, char **argv)
 
 	double startTime = MPI_Wtime(), S = 0;
 
-	for (int i = 1; i < limit; i++)
+	for (int i = 1; i <= limit; i++)
 		S += 1 / (1. + i);
 
 	double endTime = MPI_Wtime();
 
-	cout << "Result: " << S << ", Time elapsed: " << endTime - startTime << endl;
+	printf("Result: %f, Time elapsed: %f\n", S, endTime - startTime);
 
 	MPI_Finalize();
 	return 0;
