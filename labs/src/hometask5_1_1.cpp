@@ -39,16 +39,16 @@ int main(int argc, char** argv)
 		// Заполняем матрицу и вектор
 		for (int i = 0; i < n; i++)
 		{
-			vec[i] = rand() % 10;
+			vec[i] = i; //rand() % 10;
 			matrix[i] = new int[n];
 
-			for (int j = 0; j < n; j++) matrix[i][j] = rand() % 10;
+			for (int j = 0; j < n; j++) matrix[i][j] = 1; //rand() % 10;
 		}
 
 		for (int i = 0; i < n; i++)
 		{
 			resultvec[i] = 0;
-			for (int j = 0; j < n; j++) resultvec[i] += matrix[i][j] * vec[i];
+			for (int j = 0; j < n; j++) resultvec[i] += matrix[i][j] * vec[j];
 		}
 
 		printarr(resultvec, n);
