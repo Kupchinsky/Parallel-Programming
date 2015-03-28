@@ -1,23 +1,26 @@
 #include <stdio.h>
 #include <mpi.h>
 #include <cstdlib>
-#include <string.h>
+#include <string>
+#include <sstream>
 
 #define TAG 111
 
+using namespace std;
+
 void printarr(int *arr, int n)
 {
-	char buf[6], result[256];
-
-	result[0] = '\0';
+	string result;
 
 	for (int i = 0; i < n; i++)
 	{
-		snprintf(buf, sizeof(buf), "%d ", arr[i]);
-		strcat(result, buf);
+		stringstream ss;
+		ss << arr[i];
+
+		result += ss.str() + " ";
 	}
 
-	printf("%s\n", result);
+	printf("%s\n", result.c_str());
 }
 
 int main(int argc, char** argv)
@@ -39,16 +42,18 @@ int main(int argc, char** argv)
 		// Заполняем матрицу и вектор
 		for (int i = 0; i < n; i++)
 		{
-			vec[i] = rand() % 10;
+			vec[i] = rand() % 1000;
 			matrix[i] = new int[n];
 
-			for (int j = 0; j < n; j++) matrix[i][j] = rand() % 10;
+			for (int j = 0; j < n; j++) matrix[i][j] = rand() % 1000;
 		}
 
+		// Считаем
 		for (int i = 0; i < n; i++)
 		{
 			resultvec[i] = 0;
-			for (int j = 0; j < n; j++) resultvec[i] += matrix[i][j] * vec[j];
+			for (int j = 0; j < n; j++)
+				resultvec[i] += matrix[i][j] * vec[j];
 		}
 
 		printarr(resultvec, n);

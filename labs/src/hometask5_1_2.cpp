@@ -1,25 +1,29 @@
 #include <stdio.h>
 #include <mpi.h>
 #include <cstdlib>
-#include <string.h>
+#include <string>
+#include <time.h>
+#include <sstream>
 
 #define TAG 111
 #define _DEBUG 0 // Для отладки
 
+using namespace std;
+
 // Вывод массива на экран
 void printarr(int *arr, int n)
 {
-	char buf[16], result[256];
-
-	result[0] = '\0';
+	string result;
 
 	for (int i = 0; i < n; i++)
 	{
-		snprintf(buf, sizeof(buf), "%d ", arr[i]);
-		strcat(result, buf);
+		stringstream ss;
+		ss << arr[i];
+
+		result += ss.str() + " ";
 	}
 
-	printf("%s\n", result);
+	printf("%s\n", result.c_str());
 }
 
 // Разделение матрицы-строки
@@ -27,8 +31,8 @@ int** splitpointers(int *arr, int n, int split_size)
 {
 	int size = n / split_size, **result = new int*[size];
 
-	for (int i = 0, split = 0; i < size; i++, split += split_size)
-		result[i] = arr + split;
+	for (int i = 0; i < size; i++)
+		result[i] = arr + (split_size * i);
 
 	return result;
 }
@@ -58,9 +62,8 @@ int main(int argc, char** argv)
 		// Заполняем матрицу и вектор
 		for (int i = 0; i < n; i++)
 		{
-			vec[i] = rand() % 10;
-
-			for (int j = 0; j < n; j++) dmatrix[i][j] = rand() % 10;
+			vec[i] = rand() % n;
+			for (int j = 0; j < n; j++) dmatrix[i][j] = rand() % n;
 		}
 
 		#if _DEBUG > 0
