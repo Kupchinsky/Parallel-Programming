@@ -9,5 +9,6 @@ then
 fi
 
 echo "!!Running $filename [$*] on $pc processes..."
+export LD_LIBRARY_PATH=/home/gcc/objdir/tempinstall/home/gcc/gcc-4.9.2/lib64
 mpiexec -n "$pc" "$filename" $*
 echo "!!End running $filename"
