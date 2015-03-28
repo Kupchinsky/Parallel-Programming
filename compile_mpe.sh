@@ -16,13 +16,13 @@ check_exit_code()
 
 echo Compiling $1...
 
-echo \$ mpic++ -c "$target_source"
-mpic++ -c "$target_source"
+echo \$ mpic++ -profile=mpicxx -c "$target_source"
+mpic++ -profile=mpicxx -c "$target_source"
 check_exit_code $?
 
 echo Linking $1 with MPE...
-echo \$ mpecc -lstdc++ -lm -mpilog "${1%.*cpp}.o" -o "$target_binary"
-mpecc -lstdc++ -lm -mpilog "${1%.*cpp}.o" -o "$target_binary"
+echo \$ mpecc -profile=mpicxx -lstdc++ -lm -mpilog "${1%.*cpp}.o" -o "$target_binary"
+mpecc -profile=mpicxx -lstdc++ -lm -mpilog "${1%.*cpp}.o" -o "$target_binary"
 check_exit_code $?
 
 rm "${1%.*cpp}.o"

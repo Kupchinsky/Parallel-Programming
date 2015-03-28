@@ -33,6 +33,7 @@ int main(int argc, char** argv)
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 
 	int n = atoi(argv[1]), *vec, *resultvec, **matrix;
+	double starttime;
 
 	if (rank == 0)
 	{
@@ -48,6 +49,8 @@ int main(int argc, char** argv)
 			for (int j = 0; j < n; j++) matrix[i][j] = rand() % 1000;
 		}
 
+		starttime = MPI_Wtime();
+
 		// Считаем
 		for (int i = 0; i < n; i++)
 		{
@@ -56,7 +59,11 @@ int main(int argc, char** argv)
 				resultvec[i] += matrix[i][j] * vec[j];
 		}
 
-		printarr(resultvec, n);
+		double endtime = MPI_Wtime() - starttime;
+
+		//printf("result vector: ");
+		//printarr(resultvec, n);
+		printf("elapsed time: %e\n", endtime);
 
 		for (int i = 0; i < n; i++)
 			delete[] matrix[i];

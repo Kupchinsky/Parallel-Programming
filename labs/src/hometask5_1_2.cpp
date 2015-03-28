@@ -46,8 +46,9 @@ int main(int argc, char** argv)
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-	// Размер матрицы, вектор, результирующий вектор, матрица (строка), матрица (обычная), строк на процесс, остаток (лишние строки)
+	// Размер матрицы, вектор, результирующий вектор, матрица (строка), матрица (обычная), строк на процесс, остаток (лишние строки), начальное время
 	int n = atoi(argv[1]), *vec, *resultvec, *matrix, **dmatrix, linesPerProcess, linesPerProcessMod = 0;
+	double starttime;
 
 	#if _DEBUG > 1
 	printf("n = %d, size = %d\n", n, size);
@@ -73,6 +74,8 @@ int main(int argc, char** argv)
 		printf("vector: ");
 		printarr(vec, n);
 		#endif
+
+		starttime = MPI_Wtime();
 
 		linesPerProcess = n / size; // Количество строк на процесс
 		linesPerProcessMod = n % size; // Лишние строки
@@ -144,8 +147,11 @@ int main(int argc, char** argv)
 			MPI_Recv(resultvec + (linesPerProcess * stat.MPI_SOURCE + linesPerProcessMod), linesPerProcess, MPI_INT, stat.MPI_SOURCE, TAG, MPI_COMM_WORLD, &stat);
 		}
 
-		printf("result vector: ");
-		printarr(resultvec, n);
+		double endtime = MPI_Wtime() - starttime;
+
+		//printf("result vector: ");
+		//printarr(resultvec, n);
+		printf("elapsed time: %e\n", endtime);
 	}
 	else
 		MPI_Send(resultvec, linesPerProcess, MPI_INT, 0, TAG, MPI_COMM_WORLD);
