@@ -43,6 +43,7 @@ int main(int argc, char** argv)
 		for (int i = 0; i < n; i++)
 		{
 			vec[i] = 1000 * i;
+			resultvec[i] = 0;
 			matrix[i] = new int[n];
 
 			for (int j = 0; j < n; j++) matrix[i][j] = 1000 + i;
@@ -52,17 +53,13 @@ int main(int argc, char** argv)
 
 		// Считаем
 		for (int i = 0; i < n; i++)
-		{
-			resultvec[i] = 0;
-			for (int j = 0; j < n; j++)
-				resultvec[i] += matrix[i][j] * vec[j];
-		}
+			for (int j = 0; j < n; j++) resultvec[i] += matrix[i][j] * vec[j];
 
 		double endtime = MPI_Wtime() - starttime;
 
-		printf("result vector: ");
-		printarr(resultvec, n);
-		printf("elapsed time: %e\n", endtime);
+		//printf("result vector: ");
+		//printarr(resultvec, n);
+		printf("elapsed time: %f\n", endtime);
 
 		for (int i = 0; i < n; i++)
 			delete[] matrix[i];

@@ -151,7 +151,7 @@ int main(int argc, char** argv)
 
 		//printf("result vector: ");
 		//printarr(resultvec, n);
-		printf("elapsed time: %e\n", endtime);
+		printf("elapsed time: %f\n", endtime);
 	}
 	else
 		MPI_Send(resultvec, linesPerProcess, MPI_INT, 0, TAG, MPI_COMM_WORLD);
