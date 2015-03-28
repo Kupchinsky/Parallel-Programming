@@ -39,33 +39,33 @@ int main(int argc, char** argv)
 		vec = new int[n]; resultvec = new int[n];
 		matrix = new int*[n];
 
-		// Заполняем вектор
+		// Заполняем матрицу и вектор
 		for (int i = 0; i < n; i++)
-			vec[i] = rand() % 1000;
+		{
+			vec[i] = 1000 * i;
+			matrix[i] = new int[n];
+
+			for (int j = 0; j < n; j++) matrix[i][j] = 1000 + i;
+		}
 
 		starttime = MPI_Wtime();
 
-		// Заполняем матрицу и сразу считаем
+		// Считаем
 		for (int i = 0; i < n; i++)
 		{
-			matrix[i] = new int[n];
 			resultvec[i] = 0;
-
 			for (int j = 0; j < n; j++)
-			{
-				matrix[i][j] = rand() % 1000;
 				resultvec[i] += matrix[i][j] * vec[j];
-			}
-
-			// Удаляем исходные данные для уменьшения расхода оперативной памяти
-			delete[] matrix[i];
 		}
 
 		double endtime = MPI_Wtime() - starttime;
 
-		//printf("result vector: ");
-		//printarr(resultvec, n);
-		printf("elapsed time: %f\n", endtime);
+		printf("result vector: ");
+		printarr(resultvec, n);
+		printf("elapsed time: %e\n", endtime);
+
+		for (int i = 0; i < n; i++)
+			delete[] matrix[i];
 
 		delete[] vec; delete[] resultvec; delete[] matrix;
 	}
