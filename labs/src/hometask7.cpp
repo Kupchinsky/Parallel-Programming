@@ -28,7 +28,7 @@ int main(int argc, char** argv)
 
 	MPI_Scatter(B, n, MPI_INT, A, n, MPI_INT, 0, MPI_COMM_WORLD);
 
-	// Выводим строку
+	// Р’С‹РІРѕРґРёРј СЃС‚СЂРѕРєСѓ
 	string buf;
 
 	for (int i = 0; i < n; i++)
@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 
 	if (rank == 0)
 	{
-		// Дополнительно выводим всю матрицу
+		// Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ РІС‹РІРѕРґРёРј РІСЃСЋ РјР°С‚СЂРёС†Сѓ
 		buf = "";
 
 		for (int i = 0; i < size * n; i++)
