@@ -52,25 +52,25 @@ int main(int argc, char** argv)
 		ss << A[i] << " ";
 
 	printf("Rank: %d, Arr: %s\n", rank, ss.str().c_str());
-/*
+
 	if (rank == 0)
 	{
 		// Дополнительно выводим всю матрицу
-		ss.clear();
+		stringstream ss2;
 
 		for (int i = 0; i < size; i++)
 		{
-			ss << "(" << n << ") ";
+			ss2 << "(" << i << ") ";
 
 			for (int j = 0; j < n; j++)
-				ss << B[i][j] << " ";
+				ss2 << B[i][j] << " ";
 
-			ss << endl;
+			ss2 << endl;
 		}
 
-		printf("Source Arr:\n%s\n", ss.str().c_str());
+		printf("Source Arr:\n%s\n", ss2.str().c_str());
 	}
-*/
+
 	MPI_Finalize();
 	return 0;
 }
